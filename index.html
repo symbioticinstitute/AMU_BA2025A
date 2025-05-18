@@ -568,7 +568,49 @@
                 // Get course data
                 const course = courseData.ba;
                 
-                // Calculate expected rank
+                // Special case for very low marks (less than 20)
+                if (marks < 20) {
+                    // Display special message for very low marks
+                    document.getElementById('resultName').textContent = name;
+                    document.getElementById('resultMarks').textContent = marks;
+                    document.getElementById('resultRank').textContent = 'Very Low Chance';
+                    document.getElementById('result').style.display = 'block';
+                    
+                    // Hide waiting list section
+                    document.getElementById('waitingListSection').style.display = 'none';
+                    
+                    // Show special note
+                    resultNoteElement.textContent = `With marks less than 20, it is very difficult to get admission or even appear in the waiting list. We recommend improving your preparation significantly.`;
+                    resultNoteElement.classList.add('result-below-cutoff');
+                    resultNoteElement.style.display = 'block';
+                    
+                    // Update seat information
+                    const seatInfoDiv = document.getElementById('seatInfo');
+                    seatInfoDiv.innerHTML = `
+                        <div class="seat-item total-seats">
+                            Total Seats
+                            <span class="seat-count">${course.totalSeats}</span>
+                        </div>
+                        <div class="seat-item">
+                            Your Position
+                            <span class="seat-count">Not Likely</span>
+                        </div>
+                    `;
+                    
+                    // Log this calculation for analytics
+                    logCalculation({
+                        name: name,
+                        marks: marks,
+                        rank: "Very Low Chance",
+                        waitingList: "N/A"
+                    });
+                    
+                    // Scroll to results
+                    document.getElementById('result').scrollIntoView({behavior: 'smooth'});
+                    return;
+                }
+                
+                // Calculate expected rank for normal cases
                 let expectedRank = calculateExpectedRank(marks, course);
                 
                 // Calculate waiting list rank starting from 1
