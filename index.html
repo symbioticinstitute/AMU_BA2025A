@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMU BA Admission Test 2025 - Rank Predictor (Boys)</title>
+    <style>
+        :root {
+            --primary: #0b4d6c;
+            --secondary: #2e7d9e;
+            --accent: #4fb3bf;
+            --light: #f0f4f8;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #3498db;
+            --danger: #e74c3c;
+            --announcement: #d32f2f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .calculator-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 15px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79, 179, 191, 0.2);
+            outline: none;
+        }
+        
+        button {
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(79, 179, 191, 0.2);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(79, 179, 191, 0.3);
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background-color: #f1f9ff;
+            border-left: 5px solid var(--info);
+        }
+        
+        .result h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .result-item {
+            margin: 15px 0;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .result-rank {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--info);
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background: #e1f0fa;
+            border-radius: 8px;
+        }
+        
+        .result-note {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            background-color: #fdf2e9;
+            border-left: 4px solid var(--warning);
+            font-size: 14px;
+            display: none;
+        }
+        
+        .result-below-cutoff {
+            background-color: #fae5e5;
+            border-left: 4px solid var(--danger);
+        }
+        
+        .info-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .info-heading {
+            color: var(--primary);
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .info-point {
+            margin: 12px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .info-icon {
+            color: var(--info);
+            margin-right: 10px;
+            font-size: 18px;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .contact {
+            margin-top: 10px;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .badge-info {
+            background-color: #e1f0fa;
+            color: var(--info);
+        }
+        
+        .seat-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .seat-item {
+            flex-basis: 48%;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .total-seats {
+            background-color: #e1f5fe;
+            border: 2px solid #29b6f6;
+            color: #0277bd;
+        }
+        
+        .seat-count {
+            font-weight: 600;
+            color: var(--secondary);
+            display: block;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        
+        .info-alert {
+            background-color: #e8f4fd;
+            border: 2px solid #4fb3bf;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-alert-content {
+            text-align: center;
+        }
+        
+        .info-alert h4 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .info-alert p {
+            margin: 8px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .contact-info {
+            margin-top: 12px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        /* New Announcement Marquee Styles */
+        .announcement-container {
+            background-color: var(--announcement);
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .announcement-content {
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 0 20px;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Google Form Link Button */
+        .form-link {
+            display: inline-block;
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .form-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator-card">
+            <div class="header">
+                <h1>AMU BA Admission Test 2025 (Boys)</h1>
+                <p>Expected Rank Calculator</p>
+                <span class="badge badge-info">7,610+ Students (Boys & Girls) Appeared This Year</span>
+            </div>
+            
+            <div class="announcement-container">
+                <div class="announcement-content">
+                    Important: This expected rank calculator is for GENERAL and EXTERNAL candidates ONLY for admission in the university. There are different categories for them and there may be variation in the cutoff.
+                </div>
+            </div>
+            
+            <div class="info-alert">
+                <div class="info-alert-content">
+                    <h4>Counselling Guidance Program Now Available!</h4>
+                    <p>We have launched a guidance programme for the counselling because online counselling is very important for selection of choices and all other things. It is very important to join this course.</p>
+                    <p>For first 100 STUDENTS, registration fee is flexible between <strong>₹150 and ₹250</strong>—you decide what you pay.</p>
+                    <p>Don't dismiss this chance and get properly guided during online COUNSELLING.</p>
+                    <p class="contact-info">Please contact us: <strong>09149822922</strong></p>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScrrdO_XeiH4sZ6FXo5yeYeYo05keSAqXpf6RZfnSNKMAKiug/viewform?usp=sf_link" class="form-link" target="_blank">Click Here to Join</a>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <form id="rankForm">
+                    <div class="form-group">
+                        <label for="name">Student Name:</label>
+                        <input type="text" id="name" placeholder="Enter student name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="marks">Marks Obtained:</label>
+                        <input type="number" id="marks" min="0" max="100" placeholder="Enter marks (0-100)" required>
+                        <div id="marksError" class="error">Please enter marks between 0 and 100.</div>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn">Calculate Expected Rank</button>
+                </form>
+            </div>
+        </div>
+        
+        <div id="result" class="result">
+            <h2>Rank Prediction Results</h2>
+            <div class="result-item">
+                <span>Student Name:</span>
+                <span id="resultName" class="result-value"></span>
+            </div>
+            <div class="result-item">
+                <span>Marks:</span>
+                <span id="resultMarks" class="result-value"></span>
+            </div>
+            
+            <div class="result-rank" id="resultRank">Rank: 0</div>
+            
+            <div class="result-item" id="waitingListSection">
+                <span>Waiting List Rank:</span>
+                <span id="resultWaitingRank" class="result-value"></span>
+            </div>
+            
+            <div class="seat-info" id="seatInfo">
+                <!-- Seat information will be populated by JavaScript -->
+            </div>
+            
+            <div id="resultNote" class="result-note">
+                <!-- Note about cutoff or other relevant information -->
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <h3 class="info-heading">Important Information</h3>
+            
+            <div class="info-point">
+                <span class="info-icon">📊</span>
+                <span>This expected rank calculator is designed for general and external candidates only. Internal candidates may have different selection criteria.</span>
+            </div>
+            
+            <div class="info-point">
+                <span class="info-icon">ℹ️</span>
+                <span>This expected rank calculator is based on previous cutoffs and expert analysis. Results may vary slightly from actual ranks.</span>
+            </div>
+            
+            <div class="info-point">
+                <span class="info-icon">💺</span>
+                <span>
+                    <strong>Total Seats:</strong><br>
+                    • BA Program (Boys): Approx. 485 seats across Faculty of Arts and Faculty of Social Sciences
+                </span>
+            </div>
+            
+            <div class="info-point">
+                <span class="info-icon">📞</span>
+                <span>If you need any help regarding counselling or have questions, please contact us:</span>
+            </div>
+            
+            <div class="contact">
+                09149822922
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Analytics code - track usage
+        let visitCount = 0;
+        let calculationCount = 0;
+        
+        // Check if localStorage is available
+        function isLocalStorageAvailable() {
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        
+        // Initialize analytics
+        function initAnalytics() {
+            if (isLocalStorageAvailable()) {
+                // Increment visit count
+                visitCount = parseInt(localStorage.getItem('baToolVisits') || '0') + 1;
+                localStorage.setItem('baToolVisits', visitCount.toString());
+                
+                // Get calculation count
+                calculationCount = parseInt(localStorage.getItem('baToolCalculations') || '0');
+                
+                // Log visit
+                console.log(`Visit #${visitCount} recorded`);
+            }
+        }
+        
+        // Log a calculation
+        function logCalculation(studentData) {
+            if (isLocalStorageAvailable()) {
+                calculationCount++;
+                localStorage.setItem('baToolCalculations', calculationCount.toString());
+                
+                // Log calculation
+                console.log(`Calculation #${calculationCount} recorded`, studentData);
+            }
+        }
+        
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize analytics when page loads
+            initAnalytics();
+            
+            // Get form element
+            const form = document.getElementById('rankForm');
+            
+            // Course data with reference points and cutoffs
+            const courseData = {
+                ba: {
+                    name: "BA Program (Boys)",
+                    totalSeats: 485,
+                    cutoff: 42, // Updated cutoff marks
+                    referencePoints: [
+                        // Real reference points based on the data provided
+                        { marks: 59.75, rank: 19 },
+                        { marks: 57, rank: 26 },
+                        { marks: 54.75, rank: 36 },
+                        { marks: 50, rank: 80 },
+                        { marks: 45, rank: 200 },
+                        { marks: 42, rank: 420 }, // Cutoff rank
+                        { marks: 40, rank: 550 },
+                        { marks: 35, rank: 700 }
+                    ]
+                }
+            };
+            
+            // Add submit event listener
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                calculateRank();
+            });
+            
+            // Also add click event to button as a backup
+            document.getElementById('submitBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                calculateRank();
+            });
+            
+            // Function to calculate and display rank
+            function calculateRank() {
+                // Reset note display
+                const resultNoteElement = document.getElementById('resultNote');
+                resultNoteElement.style.display = 'none';
+                resultNoteElement.classList.remove('result-below-cutoff');
+                resultNoteElement.textContent = '';
+                
+                // Get input values
+                const name = document.getElementById('name').value.trim();
+                const marksInput = document.getElementById('marks').value.trim();
+                const marks = parseFloat(marksInput);
+                
+                // Validate inputs
+                if (name === '') {
+                    alert('Please enter student name');
+                    return;
+                }
+                
+                // Validate marks
+                if (marksInput === '' || isNaN(marks) || marks < 0 || marks > 100) {
+                    document.getElementById('marksError').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('marksError').style.display = 'none';
+                }
+                
+                // Get course data
+                const course = courseData.ba;
+                
+                // Calculate expected rank
+                let expectedRank = calculateExpectedRank(marks, course);
+                
+                // Calculate waiting list rank starting from 1
+                let waitingListRank = "Not in waiting list";
+                if (expectedRank > course.totalSeats) {
+                    waitingListRank = expectedRank - course.totalSeats;
+                }
+                
+                // Add note about information reliability and cutoff
+                if (marks < course.cutoff) {
+                    resultNoteElement.textContent = `Note: Your marks (${marks}) are below the expected cutoff of ${course.cutoff}. You may be placed on the waiting list. Please check the official results when released.`;
+                    resultNoteElement.classList.add('result-below-cutoff');
+                } else {
+                    resultNoteElement.textContent = `Note: This prediction is based on previous trends and expert analysis. The actual results may vary. This prediction is provided for information purposes only.`;
+                }
+                resultNoteElement.style.display = 'block';
+                
+                // Display results
+                document.getElementById('resultName').textContent = name;
+                document.getElementById('resultMarks').textContent = marks;
+                document.getElementById('resultRank').textContent = `Rank: ${expectedRank}`;
+                document.getElementById('resultWaitingRank').textContent = waitingListRank;
+                document.getElementById('result').style.display = 'block';
+                
+                // Log this calculation for analytics
+                logCalculation({
+                    name: name,
+                    marks: marks,
+                    rank: expectedRank,
+                    waitingList: waitingListRank
+                });
+                
+                // Update seat information with highlighted total seats
+                const seatInfoDiv = document.getElementById('seatInfo');
+                seatInfoDiv.innerHTML = `
+                    <div class="seat-item total-seats">
+                        Total Seats
+                        <span class="seat-count">${course.totalSeats}</span>
+                    </div>
+                    <div class="seat-item">
+                        Your Position
+                        <span class="seat-count">${expectedRank <= course.totalSeats ? 'Selected' : 'Waiting List'}</span>
+                    </div>
+                `;
+                
+                // Show or hide waiting list section based on rank
+                document.getElementById('waitingListSection').style.display = 
+                    expectedRank <= course.totalSeats ? 'none' : 'flex';
+                
+                // Scroll to results
+                document.getElementById('result').scrollIntoView({behavior: 'smooth'});
+            }
+            
+            // Function to calculate expected rank based on marks
+            function calculateExpectedRank(marks, course) {
+                let expectedRank;
+                
+                // Special case: Marks above 70 get ranks 1-10
+                if (marks > 70) {
+                    expectedRank = Math.max(1, Math.min(10, Math.round(10 - ((marks - 70) / 30) * 9)));
+                } 
+                // Special case: Marks 60-70 get ranks 10-20
+                else if (marks >= 60 && marks <= 70) {
+                    const rankRange = 20 - 10;
+                    const markRange = 70 - 60;
+                    const markPosition = 70 - marks;
+                    expectedRank = Math.round(10 + (markPosition / markRange) * rankRange);
+                }
+                // Handle marks below 60 using reference points
+                else {
+                    const refPoints = course.referencePoints;
+                    const sortedRefPoints = [...refPoints].sort((a, b) => b.marks - a.marks);
+                    
+                    if (marks >= sortedRefPoints[0].marks) {
+                        // Higher than highest reference point
+                        const marksDiff = marks - sortedRefPoints[0].marks;
+                        expectedRank = Math.max(10, Math.round(sortedRefPoints[0].rank - (marksDiff * 3)));
+                    } else if (marks <= sortedRefPoints[sortedRefPoints.length - 1].marks) {
+                        // Lower than lowest reference point
+                        const marksDiff = sortedRefPoints[sortedRefPoints.length - 1].marks - marks;
+                        expectedRank = Math.round(sortedRefPoints[sortedRefPoints.length - 1].rank + (marksDiff * 25));
+                    } else {
+                        // Between reference points - use linear interpolation
+                        let lowerRef, upperRef;
+                        
+                        for (let i = 0; i < sortedRefPoints.length - 1; i++) {
+                            if (marks <= sortedRefPoints[i].marks && marks >= sortedRefPoints[i + 1].marks) {
+                                upperRef = sortedRefPoints[i];
+                                lowerRef = sortedRefPoints[i + 1];
+                                break;
+                            }
+                        }
+                        
+                        // Calculate using linear interpolation
+                        const marksDiff = upperRef.marks - lowerRef.marks;
+                        const rankDiff = lowerRef.rank - upperRef.rank;
+                        const markRatio = (marks - lowerRef.marks) / marksDiff;
+                        expectedRank = Math.round(lowerRef.rank - (markRatio * rankDiff));
+                    }
+                    
+                    // Apply special rule for marks under 42 - put them in waiting list
+                    if (marks < course.cutoff) {
+                        // Ensure they're in waiting list by setting rank to at least totalSeats + 1
+                        expectedRank = Math.max(expectedRank, course.totalSeats + 1);
+                    }
+                }
+                
+                // Ensure rank is at least 1 and restrict waiting list to 400
+                expectedRank = Math.max(1, expectedRank);
+                if (expectedRank > course.totalSeats) {
+                    // Limit waiting list to 400
+                    const maxWaitingRank = course.totalSeats + 400;
+                    if (expectedRank > maxWaitingRank) {
+                        expectedRank = maxWaitingRank;
+                    }
+                }
+                
+                return expectedRank;
+            }
+        });
+    </script>
+</body>
+</html>
